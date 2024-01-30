@@ -3,16 +3,17 @@ import { useAuth } from '../hooks/authContext';
 import { SignEntity } from '../utils/types';
 import { signOut } from '../utils/api';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const Register: React.FC = () => {
   const [formData, setFormData] = useState<SignEntity.UserSignUp>({ username: '', password: '' });
   const { login } = useAuth();
-
+  const navigate = useNavigate()
   const handleSignUp = async (data: SignEntity.UserSignUp) => {
     try {
       const response = await signOut(data);
       console.log('Backend Response:', response.data);
-
+      navigate('/login')
     } catch (error) {
       console.error('Error during registration:', error);
     }

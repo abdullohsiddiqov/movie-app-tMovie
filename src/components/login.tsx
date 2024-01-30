@@ -11,17 +11,20 @@ export const Login: React.FC = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSignIn = async (data: SignEntity.UserSignIn) => {
-    try {
-      const response = await signIn(data);
-      console.log('Backend Response:', response.data);
-      login(data.username);
-      isError(null)
-      navigate('/');
-    } catch (error) {
-      isError(`Error during login:${error}`)
-    }
-  };
+const handleSignIn = async (data: SignEntity.UserSignIn) => {
+  try {
+    const response = await signIn(data);
+    console.log('Backend Response:', response.data);
+
+    const isAdminUser = data.username === 'gangdramma' && data.password === 'root1234';
+
+    login(data.username, isAdminUser);
+    isError(null);
+    navigate('/');
+  } catch (error) {
+    isError(`Error during login: ${error}`);
+  }
+};
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

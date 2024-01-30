@@ -3,17 +3,19 @@ import axios from "axios";
 import { MovieDetails } from "../utils/types";
 import { useAuth } from "../hooks/authContext";
 import { useNavigate } from "react-router-dom";
+import { Footer } from "./footer";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import "../assets/styles/movies.css";
 import search from "../assets/images/search.svg";
+import deleteIcon from '../assets/images/delete.svg';
 
 export const Movielist: React.FC = () => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, user } = useAuth();
   const [movies, setMovies] = useState<MovieDetails[] | undefined>(undefined);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [visibleMovies, setVisibleMovies] = useState<number>(10); // Number of movies to display
+  const [visibleMovies, setVisibleMovies] = useState<number>(10);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -45,10 +47,16 @@ export const Movielist: React.FC = () => {
   const deleteMovie = async (id: number) => {
     try {
       setLoading(true);
-      await axios.delete(`http://localhost:4000/api/delete_movie/${id}`);
-      setMovies((prevMovies) => prevMovies?.filter((movie) => movie.id !== id));
+
+      if (isLoggedIn() && user?.isAdmin) {
+        console.log('User is an admin. Deleting movie...');
+        await axios.delete(`http://localhost:4000/api/delete_movie/${id}`);
+        setMovies((prevMovies) => prevMovies?.filter((movie) => movie.id !== id));
+      } else {
+        console.error('Unauthorized: User is not an admin');
+      }
     } catch (error) {
-      console.error("Error deleting movie:", error);
+      console.error('Error deleting movie:', error);
     } finally {
       setLoading(false);
     }
@@ -67,6 +75,7 @@ export const Movielist: React.FC = () => {
   );
 
   return (
+    <>
     <div>
       {loading && (
         <div className="skeleton react-skeletons">
@@ -248,10 +257,10 @@ export const Movielist: React.FC = () => {
         {filteredMovies?.slice(0, visibleMovies).map((movie) => (
           <div
             key={movie.id}
-            onClick={() => handleMovieClick(movie.id)}
             className="skeleton"
           >
             <div
+              onClick={() => handleMovieClick(movie.id)}
               style={{
                 backgroundImage: `url(${movie.images})`,
                 width: "200px",
@@ -265,24 +274,28 @@ export const Movielist: React.FC = () => {
               </p>
             </div>
             {isLoggedIn() && (
-              <button onClick={() => deleteMovie(movie.id)}>Delete</button>
+              <button onClick={() => deleteMovie(movie.id)} className="btnD"><img src={deleteIcon} alt="" className="deleteIcon"/></button>
             )}
           </div>
         ))}
       </div>
+      <div className="center">
       <button
         onClick={loadMore}
         style={{
           border: "none",
-          backgroundColor: "#1a1a1a",
           color: "#fff",
-          marginTop: 10,
+          marginTop: 40,
           marginLeft: 20,
-          height: 50,
+          height: 40,
         }}
+        className='loadM'
       >
         Load more
       </button>
+      </div>
     </div>
+    <Footer/>
+    </>
   );
 };

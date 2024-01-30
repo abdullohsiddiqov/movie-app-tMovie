@@ -68,3 +68,29 @@
     justify-content: center;
     background-color: #3E3C48;
 }
+.center{ 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 100px;
+}
+.center button{ 
+    background-color: red;
+    width: 120px;
+    border-radius: 20px;
+}
+.btnD{ 
+    background-color: transparent;
+    border: none;
+}
+.loadM{
+    font-size: 18px;
+}
+.loadM:hover{ 
+    transform: scale(1.1);
+    transition: .3s;
+}
+.loadM:active{ 
+    transform: translateY(5px);
+    transition: .3s;
+}

@@ -12,9 +12,9 @@ export interface MovieDetails {
   id: number;
   title: string;
   description: string;
-  rate: number;
-  year: number;
-  runtime: number;
+  rate: string;
+  year: string;
+  runtime: string;
   genre: string;
   country: string;
   images: string;

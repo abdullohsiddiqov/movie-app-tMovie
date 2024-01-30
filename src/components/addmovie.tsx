@@ -1,5 +1,4 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import { useAuth } from "../hooks/authContext";
 import { addMovie } from "../utils/api";
 import { useNavigate } from "react-router-dom";
 import { MovieDetails } from "../utils/types";
@@ -9,9 +8,9 @@ export const CreateMovie: React.FC = () => {
     id: 0,
     title: "",
     description: "",
-    rate: 0,
-    year: 0,
-    runtime: 0,
+    rate: '',
+    year: '',
+    runtime: '',
     genre: "",
     country: "",
     images: "",
@@ -92,7 +91,7 @@ export const CreateMovie: React.FC = () => {
               </label>
               <label>
                 <input
-                  type="number"
+                  type="text"
                   name="year"
                   className="input1"
                   value={formData.year}
@@ -102,7 +101,7 @@ export const CreateMovie: React.FC = () => {
               </label>
               <label>
                 <input
-                  type="number"
+                  type="text"
                   name="rate"
                   className="input1"
                   value={formData.rate}
@@ -112,7 +111,7 @@ export const CreateMovie: React.FC = () => {
               </label>
               <label>
                 <input
-                  type="number"
+                  type="text"
                   name="runtime"
                   className="input1"
                   value={formData.runtime}

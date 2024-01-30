@@ -7,6 +7,7 @@ import { Register } from './components/register';
 import { CreateMovie } from './components/addmovie';
 import { Movielist } from './components/movielist';
 import { MovieDetailsPage } from './components/moviedetails';
+import { Footer } from './components/footer';
 
 const App: React.FC = () => {
   return (
@@ -20,6 +21,7 @@ const App: React.FC = () => {
           <Route path="/movie-create" element={<CreateMovie />} />
           <Route path="/movie/:id" element={<MovieDetailsPage />} />
         </Routes>
+        {/* <Footer /> */}
       </AuthProvider>
     </Router>
   );
