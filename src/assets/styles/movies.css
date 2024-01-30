@@ -1,0 +1,70 @@
+.react-skeletons{ 
+    display: grid;
+    grid-template-columns: repeat(5,170px)!important;
+    justify-content: center;
+    gap: 15px;
+    align-items: center;
+    cursor: pointer;
+}
+.center{ 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.skeleton{ 
+    margin-top: 40px;
+}
+.image{ 
+    width: 170px!important;
+    height: 250px!important;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 10px;
+}
+.title-movie{ 
+    color: white;
+    font-family: sans-serif;
+    margin-top: 10px;
+}
+.title{ 
+    height: 40px;
+    text-align: center;
+}
+.searchIcon{ 
+    width: 20px;
+    height: 20px;
+}
+.search{ 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+.search-movies{ 
+    width: 300px;
+    height: 35px;
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+    outline: none;
+    background-color: #3E3C48;
+    border: none;
+    padding-left: 20px;
+    color: #969DA9;
+}
+.search-movies::placeholder{ 
+    color: #969DA9;
+}
+.search-icon{ 
+    width: 40px;
+    height: 35px;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #3E3C48;
+}
