@@ -88,7 +88,7 @@ export const CreateMovie: React.FC = () => {
             <input type="file" accept="image/*" onChange={handleFileChange} />
           </label>
           {formData.images && <img src={formData.images} alt="Preview" style={{ maxWidth: '200px', maxHeight: '200px' }} />}
-          <button type="submit">Create Home</button>
+          <button type="submit">Add Movie</button>
         </form>
       </div>
     );

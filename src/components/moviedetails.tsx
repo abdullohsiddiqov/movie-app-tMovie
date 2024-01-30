@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { MovieDetails } from '../utils/types';
-
+import { MovieDetails } from "../utils/types";
+import "../assets/styles/moviedetails.css";
 export const MovieDetailsPage: React.FC = () => {
   const { id } = useParams();
   const [movieDetails, setMovieDetails] = useState<MovieDetails | null>(null);
@@ -12,11 +12,13 @@ export const MovieDetailsPage: React.FC = () => {
     const fetchMovieDetails = async () => {
       try {
         setLoading(true);
-        const response = await axios.get<{ movie: MovieDetails }>(`http://localhost:4000/api/movies/${id}`);
-        console.log('Full API Response:', response);
+        const response = await axios.get<{ movie: MovieDetails }>(
+          `http://localhost:4000/api/movies/${id}`
+        );
+        console.log("Full API Response:", response);
         setMovieDetails(response.data.movie);
       } catch (error) {
-        console.error('Error fetching movie details:', error);
+        console.error("Error fetching movie details:", error);
       } finally {
         setLoading(false);
       }
@@ -38,16 +40,41 @@ export const MovieDetailsPage: React.FC = () => {
         </div>
       )}
       {movieDetails && (
-        <div>
-          <h2>{movieDetails.title}</h2>
-          <p>Title: {movieDetails.title}</p>
-          <p>Genre: {movieDetails.genre}</p>
-          <p>Country: {movieDetails.country}</p>
-          <p>Description: {movieDetails.description}</p>
-          <p>Rate: {movieDetails.rate}</p>
-          <p>Runtime: {movieDetails.runtime}</p>
-          <p>Year: {movieDetails.year}</p>
-          <div style={{ backgroundImage: `url(${movieDetails.images})`, width: '200px', height: '200px' }} className="image"></div>
+        <div className="main-container">
+          <div className="container">
+            <div className="main-box">
+              <div
+                className="image"
+                style={{ backgroundImage: `url(${movieDetails.images})` }}
+              ></div>
+              <div className="titlesbox">
+                <div className="box1">
+                  <h3>Title:</h3>
+                  <p>{movieDetails.title}</p>
+                </div>
+                <div className="box2">
+                  <h3>Year:</h3>
+                  <p>{movieDetails.year}</p>
+                </div>
+                <div className="box1">
+                  <h3>Country:</h3>
+                  <p>{movieDetails.country}</p>
+                </div>
+                <div className="box2">
+                  <h3>Genre:</h3>
+                  <p>{movieDetails.genre}</p>
+                </div>
+                <div className="box1">
+                  <h3>Runtime:</h3>
+                  <p>{movieDetails.runtime}</p>
+                </div>
+              </div>
+            </div>
+            <div className="main-box2">
+              <h3 className="text">Description:</h3>
+              <p className="text2">{movieDetails.description}</p>
+            </div>
+          </div>
         </div>
       )}
     </div>
