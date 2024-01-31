@@ -18,4 +18,5 @@ export interface MovieDetails {
   genre: string;
   country: string;
   images: string;
+  video: string;
 }

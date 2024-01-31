@@ -37,25 +37,25 @@ export const Navbar: React.FC = () => {
         </div>
         <ul className='nav-elements'>
           <li className='home'>
-            <Link to="/" className='home'>Home</Link>
+            <Link to="/" className='home'>Главное меню</Link>
           </li>
           {isLoggedIn() ? (
             <>
               <li className='user'>{user?.username}</li>
               <li className='logout'>
-                <button onClick={logout} className='logout'>logout</button>
+                <button onClick={logout} className='logout'>Выход</button>
               </li>
               <li className='auth'>
-                {isLoggedIn() && <button onClick={() => handleAddMovie()} className='add'>Add Movie</button>}
+                {isLoggedIn() && <button onClick={() => handleAddMovie()} className='add'>Добавить фильм</button>}
               </li>
             </>
           ) : (
             <>
               <li className='auth'>
-                <Link to="/login" className='authreg'>Login</Link>
+                <Link to="/login" className='authreg'>Вход</Link>
               </li>
               <li className='auth'>
-                <Link to="/register" className='authreg'>Register</Link>
+                <Link to="/register" className='authreg'>Регистрация</Link>
               </li>
             </>
           )}

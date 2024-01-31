@@ -245,7 +245,7 @@ export const Movielist: React.FC = () => {
         <input
           type="search"
           className="search-movies"
-          placeholder="Search movies..."
+          placeholder="Поиск фильмов..."
           value={searchQuery}
           onChange={handleSearchChange}
         />
@@ -291,7 +291,7 @@ export const Movielist: React.FC = () => {
         }}
         className='loadM'
       >
-        Load more
+        Больше
       </button>
       </div>
     </div>

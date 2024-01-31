@@ -49,29 +49,33 @@ export const MovieDetailsPage: React.FC = () => {
               ></div>
               <div className="titlesbox">
                 <div className="box1">
-                  <h3>Title:</h3>
+                  <h3>Заголовок:</h3>
                   <p>{movieDetails.title}</p>
                 </div>
                 <div className="box2">
-                  <h3>Year:</h3>
+                  <h3>Год:</h3>
                   <p>{movieDetails.year}</p>
                 </div>
                 <div className="box1">
-                  <h3>Country:</h3>
+                  <h3>Страна:</h3>
                   <p>{movieDetails.country}</p>
                 </div>
                 <div className="box2">
-                  <h3>Genre:</h3>
+                  <h3>Жанр:</h3>
                   <p>{movieDetails.genre}</p>
                 </div>
                 <div className="box1">
-                  <h3>Runtime:</h3>
+                  <h3>Длительность фильма:</h3>
                   <p>{movieDetails.runtime}</p>
+                </div>
+                <div className="box1">
+                  <h3>Видео:</h3>
+                <video controls>{movieDetails.video}</video>
                 </div>
               </div>
             </div>
             <div className="main-box2">
-              <h3 className="text">Description:</h3>
+              <h3 className="text">Описание:</h3>
               <p className="text2">{movieDetails.description}</p>
             </div>
           </div>

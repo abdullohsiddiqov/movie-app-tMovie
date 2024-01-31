@@ -14,6 +14,7 @@ export const CreateMovie: React.FC = () => {
     genre: "",
     country: "",
     images: "",
+    video: ""
   });
 
   const [file, setFile] = useState<File | null>(null);
@@ -56,7 +57,7 @@ export const CreateMovie: React.FC = () => {
     <div className="head-container">
       <div className="container1">
         <div className="textbox1">
-          <h2 className="h2">Create movie</h2>
+          <h2 className="h2">Создать фильм</h2>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="main-box3">
@@ -68,7 +69,7 @@ export const CreateMovie: React.FC = () => {
                   className="input1"
                   value={formData.title}
                   onChange={handleChange}
-                  placeholder="Title:"
+                  placeholder="Заголовок:"
                 />
                 <input
                   type="text"
@@ -76,7 +77,7 @@ export const CreateMovie: React.FC = () => {
                   className="input1"
                   value={formData.country}
                   onChange={handleChange}
-                  placeholder="Country:"
+                  placeholder="Страна:"
                 />
               </label>
               <label>
@@ -86,7 +87,7 @@ export const CreateMovie: React.FC = () => {
                   className="input1"
                   value={formData.genre}
                   onChange={handleChange}
-                  placeholder="Genre:"
+                  placeholder="Жанр:"
                 />
               </label>
               <label>
@@ -96,7 +97,7 @@ export const CreateMovie: React.FC = () => {
                   className="input1"
                   value={formData.year}
                   onChange={handleChange}
-                  placeholder="Year:"
+                  placeholder="Год:"
                 />
               </label>
               <label>
@@ -106,7 +107,7 @@ export const CreateMovie: React.FC = () => {
                   className="input1"
                   value={formData.rate}
                   onChange={handleChange}
-                  placeholder="Rate:"
+                  placeholder="Оценки:"
                 />
               </label>
               <label>
@@ -116,7 +117,7 @@ export const CreateMovie: React.FC = () => {
                   className="input1"
                   value={formData.runtime}
                   onChange={handleChange}
-                  placeholder="Runtime:"
+                  placeholder="Длительность фильма:"
                 />
               </label>
               <label>
@@ -126,13 +127,13 @@ export const CreateMovie: React.FC = () => {
                   className="input1"
                   value={formData.description}
                   onChange={handleChange}
-                  placeholder="Description:"
+                  placeholder="Описание:"
                 />
               </label>
             </div>
             <div className="box11">
-              <label className="input3">
-                Add Foto
+              <label className="input3" style={{textAlign: 'center'}}>
+                 Добавить фото
                 <input
                   type="file"
                   accept="image/*"
@@ -143,7 +144,7 @@ export const CreateMovie: React.FC = () => {
               {formData.images && (
                 <img src={formData.images} alt="Preview" className="foto3" />
               )}
-              <button className="addmovie">Add Movie</button>
+              <button className="addmovie">Добавить фильм</button>
             </div>
           </div>
         </form>
