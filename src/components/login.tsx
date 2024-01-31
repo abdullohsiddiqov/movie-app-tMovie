@@ -1,30 +1,35 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-import { useAuth } from '../hooks/authContext';
-import { SignEntity } from '../utils/types';
-import { signIn } from '../utils/api';
-
+import { useAuth } from "../hooks/authContext";
+import { SignEntity } from "../utils/types";
+import { signIn } from "../utils/api";
+import "../assets/styles/registerlogin.css";
 export const Login: React.FC = () => {
-  const [formData, setFormData] = useState<SignEntity.UserSignIn>({ username: '', password: '' });
+  const [formData, setFormData] = useState<SignEntity.UserSignIn>({
+    username: "",
+    password: "",
+  });
   const [error, isError] = useState<string | null>(null);
   const { login } = useAuth();
   const navigate = useNavigate();
 
-const handleSignIn = async (data: SignEntity.UserSignIn) => {
-  try {
-    const response = await signIn(data);
-    console.log('Backend Response:', response.data);
+  const handleSignIn = async (data: SignEntity.UserSignIn) => {
+    try {
+      const response = await signIn(data);
+      console.log("Backend Response:", response.data);
 
-    const isAdminUser = data.username === 'gangdramma' && data.password === 'root1234';
+      const isAdminUser =
+        (data.username === "gangdramma" && data.password === "root1234") ||
+        (data.username === "americano" && data.password === "10659430");
 
-    login(data.username, isAdminUser);
-    isError(null);
-    navigate('/');
-  } catch (error) {
-    isError(`Error during login: ${error}`);
-  }
-};
+      login(data.username, isAdminUser);
+      isError(null);
+      navigate("/");
+    } catch (error) {
+      isError(`Error during login: ${error}`);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,18 +45,37 @@ const handleSignIn = async (data: SignEntity.UserSignIn) => {
 
   return (
     <div>
-      <h2>Login</h2>
+      <h2 className="text100">Личный кабинет</h2>
+      <Link to="/register" className="text101">
+        Register
+      </Link>
       <form onSubmit={handleSubmit}>
-        <label>
-          Username:
-          {error && <p style={{color:"red"}}>Invalid user</p>}
-          <input type="text" name="username" value={formData.username} onChange={handleChange} />
-        </label>
-        <label>
-          Password:
-          <input type="password" name="password" value={formData.password} onChange={handleChange} />
-        </label>
-        <button type="submit">Login</button>
+        <div className="box100">
+          <label>
+            {error && <p style={{ color: "red" }}>Invalid user</p>}
+            <input
+              type="text"
+              name="username"
+              className="input4"
+              value={formData.username}
+              onChange={handleChange}
+              placeholder="Логин:"
+            />
+          </label>
+          <label>
+            <input
+              type="text"
+              name="password"
+              className="input4"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Парол:"
+            />
+          </label>
+          <button className="register" type="submit">
+            Вход
+          </button>
+        </div>
       </form>
     </div>
   );

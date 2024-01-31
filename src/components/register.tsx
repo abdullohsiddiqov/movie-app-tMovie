@@ -1,21 +1,24 @@
-import React, { useState } from 'react';
-import { useAuth } from '../hooks/authContext';
-import { SignEntity } from '../utils/types';
-import { signOut } from '../utils/api';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-
+import React, { useState } from "react";
+import { useAuth } from "../hooks/authContext";
+import { SignEntity } from "../utils/types";
+import { signOut } from "../utils/api";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import "../assets/styles/registerlogin.css";
 export const Register: React.FC = () => {
-  const [formData, setFormData] = useState<SignEntity.UserSignUp>({ username: '', password: '' });
+  const [formData, setFormData] = useState<SignEntity.UserSignUp>({
+    username: "",
+    password: "",
+  });
   const { login } = useAuth();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleSignUp = async (data: SignEntity.UserSignUp) => {
     try {
       const response = await signOut(data);
-      console.log('Backend Response:', response.data);
-      navigate('/login')
+      console.log("Backend Response:", response.data);
+      navigate("/login");
     } catch (error) {
-      console.error('Error during registration:', error);
+      console.error("Error during registration:", error);
     }
   };
 
@@ -33,21 +36,37 @@ export const Register: React.FC = () => {
 
   return (
     <div>
-      <h2>Register</h2>
+      <h2 className="text100">Личный кабинет</h2>
+      <Link to="/login" className="text101">
+        Login
+      </Link>
       <form onSubmit={handleSubmit}>
-        <label>
-          Username:
-          <input type="text" name="username" value={formData.username} onChange={handleChange} />
-        </label>
-        <label>
-          Password:
-          <input type="password" name="password" value={formData.password} onChange={handleChange} />
-        </label>
-        <button type="submit">Register</button>
+        <div className="box100">
+          <label>
+            <input
+              type="text"
+              name="username"
+              className="input4"
+              value={formData.username}
+              onChange={handleChange}
+              placeholder="Логин:"
+            />
+          </label>
+          <label>
+            <input
+              type="text"
+              name="password"
+              className="input4"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Парол:"
+            />
+          </label>
+          <button className="register" type="submit">
+            Регистрация
+          </button>
+        </div>
       </form>
-      <p>
-        Already have an account? <Link to="/login">Login</Link>
-      </p>
     </div>
   );
 };

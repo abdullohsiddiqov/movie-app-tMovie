@@ -58,3 +58,12 @@ p {
 .text2 {
   color: rgb(80, 80, 80);
 }
+.video-text {
+  color: white;
+  font-size: 24px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+.video1 {
+  width: 100%;
+}

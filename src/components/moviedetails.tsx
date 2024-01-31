@@ -68,16 +68,14 @@ export const MovieDetailsPage: React.FC = () => {
                   <h3>Длительность фильма:</h3>
                   <p>{movieDetails.runtime}</p>
                 </div>
-                <div className="box1">
-                  <h3>Видео:</h3>
-                <video controls>{movieDetails.video}</video>
-                </div>
               </div>
             </div>
             <div className="main-box2">
               <h3 className="text">Описание:</h3>
               <p className="text2">{movieDetails.description}</p>
             </div>
+            <h3 className="video-text">Смотреть онлайн</h3>
+            <video src="" className="video1" controls></video>
           </div>
         </div>
       )}
