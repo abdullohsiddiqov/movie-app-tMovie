@@ -1,8 +1,8 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import { addMovie } from "../utils/api";
+import { addMovie } from "../../utils/api";
 import { useNavigate } from "react-router-dom";
-import { MovieDetails } from "../utils/types";
-import "../assets/styles/addmovie.css";
+import { MovieDetails } from "../../utils/types";
+import "../../assets/styles/addmovie.css";
 export const CreateMovie: React.FC = () => {
   const [formData, setFormData] = useState<MovieDetails>({
     id: 0,
@@ -129,6 +129,16 @@ export const CreateMovie: React.FC = () => {
                   value={formData.description}
                   onChange={handleChange}
                   placeholder="Описание:"
+                />
+              </label>
+              <label>
+                <input
+                  type="text"
+                  name="videoLinkUrl"
+                  className="input1"
+                  value={formData.videoLink}
+                  onChange={handleChange}
+                  placeholder="videoLinkUrl:"
                 />
               </label>
             </div>

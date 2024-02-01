@@ -46,7 +46,7 @@ export const Navbar: React.FC = () => {
                 <button onClick={logout} className='logout'>Выход</button>
               </li>
               <li className='auth'>
-                {isLoggedIn() && <button onClick={() => handleAddMovie()} className='add'>Добавить фильм</button>}
+                {isLoggedIn() && user?.isAdmin && <button onClick={() => handleAddMovie()} className='add'>Добавить фильм</button>}
               </li>
             </>
           ) : (

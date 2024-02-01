@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { MovieDetails } from "../utils/types";
-import { useAuth } from "../hooks/authContext";
+import { MovieDetails } from "../../utils/types";
+import { useAuth } from "../../hooks/authContext";
 import { useNavigate } from "react-router-dom";
-import { Footer } from "./footer";
+import { Footer } from "../footer";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import "../assets/styles/movies.css";
-import search from "../assets/images/search.svg";
-import deleteIcon from '../assets/images/delete.svg';
+import "../../assets/styles/movies.css";
+import search from "../../assets/images/search.svg";
+import deleteIcon from '../../assets/images/delete.svg';
 
 export const Movielist: React.FC = () => {
   const { isLoggedIn, user } = useAuth();

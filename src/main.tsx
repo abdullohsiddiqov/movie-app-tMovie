@@ -2,12 +2,11 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from '../src/hooks/authContext';
 import { Navbar } from './components/navbar';
-import { Login } from './components/login';
-import { Register } from './components/register';
-import { CreateMovie } from './components/addmovie';
-import { Movielist } from './components/movielist';
-import { MovieDetailsPage } from './components/moviedetails';
-import { Footer } from './components/footer';
+import { Login } from './components/auth/login';
+import { Register } from './components/auth/register';
+import { CreateMovie } from './components/movies/addmovie';
+import { Movielist } from './components/movies/movielist';
+import { MovieDetailsPage } from './components/movies/moviedetails';
 
 const App: React.FC = () => {
   return (
@@ -27,3 +26,4 @@ const App: React.FC = () => {
 };
 
 export default App;
+

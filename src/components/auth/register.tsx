@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useAuth } from "../hooks/authContext";
-import { SignEntity } from "../utils/types";
-import { signOut } from "../utils/api";
+import { useAuth } from "../../hooks/authContext";
+import { SignEntity } from "../../utils/types";
+import { signOut } from "../../utils/api";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import "../assets/styles/registerlogin.css";
+import "../../assets/styles/registerlogin.css";
 export const Register: React.FC = () => {
   const [formData, setFormData] = useState<SignEntity.UserSignUp>({
     username: "",

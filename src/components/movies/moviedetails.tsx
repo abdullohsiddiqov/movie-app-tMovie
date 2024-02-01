@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { MovieDetails, LikesCount, isComments } from "../utils/types";
-import "../assets/styles/moviedetails.css";
+import { MovieDetails, LikesCount, isComments } from "../../utils/types";
+import "../../assets/styles/moviedetails.css";
+import { useAuth } from "../../hooks/authContext";
 
 export const MovieDetailsPage: React.FC = () => {
   const { id } = useParams();
@@ -11,6 +12,7 @@ export const MovieDetailsPage: React.FC = () => {
   const [comments, setComments] = useState<isComments[] | null>(null);
   const [newComment, setNewComment] = useState<string>("");
   const [loading, setLoading] = useState(false);
+  const { isLoggedIn, user } = useAuth();
 
   const fetchMovieDetails = async () => {
     try {
@@ -42,13 +44,17 @@ export const MovieDetailsPage: React.FC = () => {
   const fetchComments = async () => {
     try {
       const response = await axios.get(`http://localhost:4000/api/comments/${id}`);
-      setComments(response.data.comments);
-      console.log(response.data.comments);
+      const commentsData = response.data.comments.map((comment: isComments) => ({
+        ...comment,
+        username: comment.username || 'Unknown User',
+      }));
+      setComments(commentsData);
+      console.log(commentsData);
     } catch (error) {
       console.error("Error fetching comments:", error);
     }
   };
-
+  
   useEffect(() => {
     if (id) {
       fetchMovieDetails();
@@ -66,14 +72,30 @@ export const MovieDetailsPage: React.FC = () => {
 
   const handleAddComment = async () => {
     try {
+      const commentData: isComments = {
+        id: id,
+        comment: newComment,
+        username: user?.username || '',
+      };
+
       await axios.post<isComments>(
         `http://localhost:4000/api/comment_movie/${id}`,
-        { comment: newComment }
+        commentData
       );
-      setNewComment("");
+
+      setNewComment('');
       fetchComments();
     } catch (error) {
       console.error("Error adding comment:", error);
+    }
+  };
+
+  const handleDeleteComment = async (commentId: string) => {
+    try {
+      await axios.delete(`http://localhost:4000/api/comment_movie/${id}`, { data: { commentId } });
+      fetchComments();
+    } catch (error) {
+      console.error("Error deleting comment", error);
     }
   };
 
@@ -81,10 +103,6 @@ export const MovieDetailsPage: React.FC = () => {
     <div>
       {loading && (
         <div>
-          <p>Loading...</p>
-          <div className="spinner-border" role="status">
-            <span className="visually-hidden"></span>
-          </div>
         </div>
       )}
       {movieDetails && (
@@ -123,28 +141,50 @@ export const MovieDetailsPage: React.FC = () => {
               <p className="text2">{movieDetails.description}</p>
             </div>
             <h3 className="video-text">Смотреть онлайн</h3>
-            <video src={movieDetails.videoLink} className="video1" controls></video>
+            <iframe 
+                width="100%" 
+                height="695" 
+                src={movieDetails.videoLink} 
+                title={`${movieDetails.title} (${movieDetails.year})`} 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                scrolling="no">
+           </iframe>
             <div className="flex4">
               <div className="like" onClick={handleLikeClick}>
                 Like
               </div>
               <div className="likesCount">{likesCount}</div>
             </div>
-            <input
-              type="text"
-              className="comments"
-              value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
-            />
-            <button className="add-comment" onClick={handleAddComment}>
-              Add Comment
-            </button>
+            {isLoggedIn() && (
+              <>
+                <input
+                  type="text"
+                  className="comments"
+                  value={newComment}
+                  onChange={(e) => setNewComment(e.target.value)}
+                />
+                <button className="add-comment" onClick={handleAddComment}>
+                  Add Comment
+                </button>
+              </>
+            )}
             <div className="all-comments">
               {comments &&
-                comments.map((comment, index) => {
-                  console.log(comment);
-                  return <div key={index}>{comment.comment}</div>;
-                })}
+                comments.map((comment, index) => (
+                  <div key={index}>
+                    <div className="userCom">
+                      {user?.username}
+                    </div>
+                    <div>{comment.comment}</div>
+                    {isLoggedIn() && (
+                      <div className="deleteCom">
+                        <button onClick={() => handleDeleteComment(comment.id!)}>
+                          delete
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                ))}
             </div>
           </div>
         </div>

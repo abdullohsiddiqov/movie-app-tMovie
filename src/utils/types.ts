@@ -25,8 +25,11 @@ export interface MovieDetails {
 
 export interface LikesCount {
   likesCount: number;
+  hasLiked: boolean;
 }
 
 export interface isComments {
+  id?: string;
+  username: string;
   comment: string;
 }
