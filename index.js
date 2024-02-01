@@ -21,6 +21,7 @@ app.delete('/api/delete_movie/:id', movieController.deleteMovie);
 app.post('/api/like_movie/:id', movieController.likeMovie);
 app.post('/api/comment_movie/:id', movieController.addComment);
 app.get('/api/likes_count/:id', movieController.getLikesCount);
+app.delete('/api/comment_movie/:id', movieController.deleteComment);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

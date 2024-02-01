@@ -147,5 +147,16 @@ const deleteMovie = (movieId, callback) => {
   });
 };
 
-module.exports = { getAllMovies, addMovie, likeMovie, getMovieById, getLikesCount, addComment, getCommentsByMovieId, deleteMovie };
+const deleteComment = (movieId, comment, callback) => {
+  db.run('UPDATE movies SET comments = REPLACE(comments, ?, "") WHERE id = ?', [comment, movieId], function (err) {
+    if (err) {
+      console.error(err.message);
+      callback(err);
+    } else {
+      callback(null, this.changes);
+    }
+  });
+};
+
+module.exports = { getAllMovies, addMovie, likeMovie, getMovieById, getLikesCount, addComment, getCommentsByMovieId, deleteMovie, deleteComment };
 

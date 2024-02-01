@@ -73,4 +73,21 @@ const deleteMovie = (req, res) => {
   });
 };
 
-module.exports = { getAllMovies, getMovieById, addMovie, likeMovie, addComment, getLikesCount, getCommentsByMovieId, deleteMovie };
+const deleteComment = (req, res) => {
+  const movieId = req.params.id;
+  const { comment } = req.body;
+
+  movieService.deleteComment(movieId, comment, (err, changes) => {
+    if (err) {
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      if (changes > 0) {
+        res.json({ message: 'Comment deleted successfully' });
+      } else {
+        res.status(404).json({ message: 'Comment not found' });
+      }
+    }
+  });
+};
+
+module.exports = { getAllMovies, getMovieById, addMovie, likeMovie, addComment, getLikesCount, getCommentsByMovieId, deleteMovie, deleteComment };
