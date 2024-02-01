@@ -21,7 +21,6 @@ const App: React.FC = () => {
           <Route path="/movie-create" element={<CreateMovie />} />
           <Route path="/movie/:id" element={<MovieDetailsPage />} />
         </Routes>
-        {/* <Footer /> */}
       </AuthProvider>
     </Router>
   );

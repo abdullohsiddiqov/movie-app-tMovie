@@ -273,9 +273,11 @@ export const Movielist: React.FC = () => {
                 {movie.title} (<span>{movie.year}</span>)
               </p>
             </div>
-            {isLoggedIn() && (
-              <button onClick={() => deleteMovie(movie.id)} className="btnD"><img src={deleteIcon} alt="" className="deleteIcon"/></button>
-            )}
+            {isLoggedIn() && user?.isAdmin && (
+             <button onClick={() => deleteMovie(movie.id)} className="btnD">
+               <img src={deleteIcon} alt="" className="deleteIcon"/>
+             </button>
+             )}
           </div>
         ))}
       </div>

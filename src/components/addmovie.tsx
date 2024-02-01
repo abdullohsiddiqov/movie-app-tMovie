@@ -14,7 +14,8 @@ export const CreateMovie: React.FC = () => {
     genre: "",
     country: "",
     images: "",
-    video: ""
+    comments: null,
+    videoLink: ""
   });
 
   const [file, setFile] = useState<File | null>(null);

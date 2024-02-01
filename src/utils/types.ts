@@ -1,13 +1,14 @@
 export namespace SignEntity {
-    export interface UserSignIn {
-      username: string;
-      password: string;
-    }
-    export interface UserSignUp {
-      username: string;
-      password: string;
-    }
+  export interface UserSignIn {
+    username: string;
+    password: string;
+  }
+  export interface UserSignUp {
+    username: string;
+    password: string;
+  }
 }
+
 export interface MovieDetails {
   id: number;
   title: string;
@@ -18,5 +19,14 @@ export interface MovieDetails {
   genre: string;
   country: string;
   images: string;
-  video: string;
+  comments?: isComments[] | null;
+  videoLink?: string;
+}
+
+export interface LikesCount {
+  likesCount: number;
+}
+
+export interface isComments {
+  comment: string;
 }

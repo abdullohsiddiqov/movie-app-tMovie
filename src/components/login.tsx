@@ -46,9 +46,11 @@ export const Login: React.FC = () => {
   return (
     <div>
       <h2 className="text100">Личный кабинет</h2>
+      <div className="flex2">
       <Link to="/register" className="text101">
-        Register
+      Регистрация
       </Link>
+      </div>
       <form onSubmit={handleSubmit}>
         <div className="box100">
           <label>
