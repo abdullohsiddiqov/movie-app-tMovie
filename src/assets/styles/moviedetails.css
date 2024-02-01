@@ -68,5 +68,77 @@ p {
   width: 100%;
 }
 .iframe {
-  border: 5px solid #1a1a1a!important;
+  border: 5px solid #1a1a1a !important;
+}
+.like {
+  fill: #9acd32;
+  margin-top: 8px;
+}
+.flex4 {
+  width: 100%;
+  margin-top: 10px;
+  padding: 0px 0px 0px 10px;
+  border-radius: 5px;
+  display: flex;
+  gap: 10px;
+  font-weight: 500;
+  align-items: center;
+  font-size: 23px;
+  background-color: #1a1a1a;
+  margin-bottom: 10px;
+  color: white;
+}
+.like:hover {
+  cursor: pointer;
+}
+.comments {
+  border: none;
+  background-color: #1a1a1a;
+  padding: 10px 15px;
+  color: white;
+  width: 500px;
+  margin-bottom: 30px;
+  font-family: sans-serif;
+  border-radius: 5px 0px 0px 5px;
+}
+.add-comment {
+  background-color: #1a1a1a;
+  color: white;
+  border-radius: 5px;
+  border: 1px solid white;
+  padding: 9px 20px;
+}
+.add-comment:hover {
+  background-color: white;
+  color: #1a1a1a;
+  border: 1px solid #1a1a1a;
+  transition: 0.7s;
+}
+.user-comment {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  height: 70px;
+  border-top: 2px solid #1a1a1a;
+  border-bottom: 2px solid #1a1a1a;
+}
+.foto {
+  width: 50px;
+  border-radius: 50%;
+}
+.userCom {
+  color: white;
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+.comm {
+  font-size: 13px;
+  color: rgb(80, 80, 80);
+}
+.deleteComm {
+  color: red;
+  background-color: #151515;
+  border: 1px solid red;
+  padding: 3px 5px;
+  border-radius: 5px;
 }
