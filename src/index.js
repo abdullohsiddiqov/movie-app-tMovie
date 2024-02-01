@@ -10,13 +10,17 @@ const port = 4000;
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get('/api/movies', movieController.getAllMovies);
-app.get('/api/movies/:id', movieController.getMovieById);
-app.post('/api/add_movie', movieController.addMovie);
-app.delete('/api/delete_movie/:id', movieController.deleteMovie);
 
 app.post('/api/register', userController.registerUser);
 app.post('/api/login', userController.loginUser);
+app.get('/api/movies', movieController.getAllMovies);
+app.get('/api/movies/:id', movieController.getMovieById);
+app.get('/api/comments/:id', movieController.getCommentsByMovieId);
+app.post('/api/add_movie', movieController.addMovie);
+app.delete('/api/delete_movie/:id', movieController.deleteMovie);
+app.post('/api/like_movie/:id', movieController.likeMovie);
+app.post('/api/comment_movie/:id', movieController.addComment);
+app.get('/api/likes_count/:id', movieController.getLikesCount);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
