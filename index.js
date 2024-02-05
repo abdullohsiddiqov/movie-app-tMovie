@@ -3,13 +3,13 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const movieController = require('./controllers/movieController');
 const userController = require('./controllers/userController');
+require('./userDBInit');
 
 const app = express();
 const port = 4000;
 
 app.use(cors());
 app.use(bodyParser.json());
-
 
 app.post('/api/register', userController.registerUser);
 app.post('/api/login', userController.loginUser);
