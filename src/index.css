@@ -1,15 +1,30 @@
-
+:root {
+  --primary-background-light: #ffffff;
+  --primary-background-dark: #191624;
+  --text-color-light: #333333;
+  --text-color-dark: #ffffff;
+  --accent-color-light: #3498db;
+  --accent-color-dark: #3498db;
+}
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #191624;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  overflow-x: hidden;
+  --primary-background-light: #ffffff;
+  --primary-background-dark: #191624;
+  --text-color-light: #333333;
+  --text-color-dark: #ffffff;
+  --accent-color: #3498db;
+  --primary-background: var(--primary-background-light);
+  --text-color: var(--text-color-light);
+  --background: var(--primary-background);
+  --foreground: var(--text-color);
+}
+
+body.dark {
+  --primary-background: var(--primary-background-dark);
+  --text-color: var(--text-color-dark);
+  --background: var(--primary-background);
+  --foreground: var(--text-color);
 }
 
 code {
@@ -19,4 +34,5 @@ code {
 *{ 
   box-sizing: border-box;
   margin: 0;
+  font-family: 'Kanit', sans-serif;
 }

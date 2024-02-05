@@ -5,12 +5,13 @@ import { useAuth } from "../../hooks/authContext";
 import { SignEntity } from "../../utils/types";
 import { signIn } from "../../utils/api";
 import "../../assets/styles/registerlogin.css";
+
 export const Login: React.FC = () => {
   const [formData, setFormData] = useState<SignEntity.UserSignIn>({
     username: "",
     password: "",
   });
-  const [error, isError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -19,15 +20,18 @@ export const Login: React.FC = () => {
       const response = await signIn(data);
       console.log("Backend Response:", response.data);
 
-      const isAdminUser =
-        (data.username === "gangdramma" && data.password === "root1234") ||
-        (data.username === "americano" && data.password === "10659430");
+      const isAdminUser = (data.username === "gangdramma" && data.password === "root1234")
 
       login(data.username, isAdminUser);
-      isError(null);
+      setError(null);
+      setFormData((prevData) => ({
+        ...prevData,
+        username: "",
+        password: ""
+      }));
       navigate("/");
     } catch (error) {
-      isError(`Error during login: ${error}`);
+      setError(`Error during login: ${error}`);
     }
   };
 
@@ -37,9 +41,10 @@ export const Login: React.FC = () => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
   };
 
@@ -47,14 +52,14 @@ export const Login: React.FC = () => {
     <div>
       <h2 className="text100">Личный кабинет</h2>
       <div className="flex2">
-      <Link to="/register" className="text101">
-      Регистрация
-      </Link>
+        <Link to="/register" className="text101">
+          Регистрация
+        </Link>
       </div>
       <form onSubmit={handleSubmit}>
         <div className="box100">
           <label>
-            {error && <p style={{ color: "red" }}>Invalid user</p>}
+            {error ? <p style={{ color: "red" }}>{error}</p> : null}
             <input
               type="text"
               name="username"
@@ -66,12 +71,12 @@ export const Login: React.FC = () => {
           </label>
           <label>
             <input
-              type="text"
+              type="password"
               name="password"
               className="input4"
               value={formData.password}
               onChange={handleChange}
-              placeholder="Парол:"
+              placeholder="Пароль:"
             />
           </label>
           <button className="register" type="submit">

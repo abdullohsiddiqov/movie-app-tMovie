@@ -15,11 +15,7 @@ export const Navbar: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 0);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -33,28 +29,28 @@ export const Navbar: React.FC = () => {
     <div className={`nav ${scrolled ? 'scrolled' : ''}`}>
       <nav>
         <div className="logo">
-          <Link to="/"><img src={logo} alt="" className='logo'/></Link>
+          <Link to="/"><img src={logo} alt="Logo" className='logo'/></Link>
         </div>
         <ul className='nav-elements'>
-          <li className='home'>
+          <li>
             <Link to="/" className='home'>Главное меню</Link>
           </li>
           {isLoggedIn() ? (
             <>
               <li className='user'>{user?.username}</li>
-              <li className='logout'>
+              <li>
                 <button onClick={logout} className='logout'>Выход</button>
               </li>
-              <li className='auth'>
-                {isLoggedIn() && user?.isAdmin && <button onClick={() => handleAddMovie()} className='add'>Добавить фильм</button>}
+              <li>
+                {isLoggedIn() && user?.isAdmin && <button onClick={handleAddMovie} className='add'>Добавить фильм</button>}
               </li>
             </>
           ) : (
             <>
-              <li className='auth'>
+              <li>
                 <Link to="/login" className='authreg'>Вход</Link>
               </li>
-              <li className='auth'>
+              <li>
                 <Link to="/register" className='authreg'>Регистрация</Link>
               </li>
             </>

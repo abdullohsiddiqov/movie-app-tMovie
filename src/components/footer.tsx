@@ -25,7 +25,7 @@ export function Footer() {
             </ul>
           </div>
           <h3 className="text-creator">
-            Created By gangdramma and the_sky_americano
+            Created By gangdramma
           </h3>
         </footer>
       </div>

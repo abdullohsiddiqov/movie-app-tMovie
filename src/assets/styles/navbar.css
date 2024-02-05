@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+:root {
+    --primary-background-light: #ffffff;
+    --primary-background-dark: #191624;
+    --text-color-light: #333333;
+    --text-color-dark: #ffffff;
+    --accent-color-light: #3498db;
+    --accent-color-dark: #3498db;
+  }
 .nav{ 
     height: 120px;
     background-image: url(../images/footer-bg.webp);
@@ -66,7 +75,7 @@ button{
     transition: .3s;
 }
 .user{ 
-    font-family: sans-serif;
+    font-family: 'Kanit';
     font-size: 20px;
     font-weight: 500;
     color: white;

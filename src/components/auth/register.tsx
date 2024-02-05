@@ -1,10 +1,10 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/authContext";
 import { SignEntity } from "../../utils/types";
 import { signOut } from "../../utils/api";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import "../../assets/styles/registerlogin.css";
+
 export const Register: React.FC = () => {
   const [formData, setFormData] = useState<SignEntity.UserSignUp>({
     username: "",
@@ -12,6 +12,7 @@ export const Register: React.FC = () => {
   });
   const { login } = useAuth();
   const navigate = useNavigate();
+
   const handleSignUp = async (data: SignEntity.UserSignUp) => {
     try {
       const response = await signOut(data);
@@ -28,9 +29,10 @@ export const Register: React.FC = () => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
   };
 
@@ -38,9 +40,9 @@ export const Register: React.FC = () => {
     <div>
       <h2 className="text100">Личный кабинет</h2>
       <div className="flex2">
-      <Link to="/login" className="text101">
-      Вход
-      </Link>
+        <Link to="/login" className="text101">
+          Вход
+        </Link>
       </div>
       <form onSubmit={handleSubmit}>
         <div className="box100">
@@ -56,12 +58,12 @@ export const Register: React.FC = () => {
           </label>
           <label>
             <input
-              type="text"
+              type="password"
               name="password"
               className="input4"
               value={formData.password}
               onChange={handleChange}
-              placeholder="Парол:"
+              placeholder="Пароль:"
             />
           </label>
           <button className="register" type="submit">

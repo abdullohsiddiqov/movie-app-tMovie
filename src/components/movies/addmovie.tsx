@@ -3,6 +3,7 @@ import { addMovie } from "../../utils/api";
 import { useNavigate } from "react-router-dom";
 import { MovieDetails } from "../../utils/types";
 import "../../assets/styles/addmovie.css";
+
 export const CreateMovie: React.FC = () => {
   const [formData, setFormData] = useState<MovieDetails>({
     id: 0,
@@ -40,7 +41,7 @@ export const CreateMovie: React.FC = () => {
       await addMovie(formData);
       navigate("/");
     } catch (error) {
-      console.error("Error adding home:", error);
+      console.error("Error adding movie:", error);
     }
   };
 
@@ -134,17 +135,17 @@ export const CreateMovie: React.FC = () => {
               <label>
                 <input
                   type="text"
-                  name="videoLinkUrl"
+                  name="videoLink"
                   className="input1"
                   value={formData.videoLink}
                   onChange={handleChange}
-                  placeholder="videoLinkUrl:"
+                  placeholder="Ссылка на видео:"
                 />
               </label>
             </div>
             <div className="box11">
-              <label className="input3" style={{textAlign: 'center'}}>
-                 Добавить фото
+              <label className="input3" style={{ textAlign: 'center' }}>
+                Добавить фото
                 <input
                   type="file"
                   accept="image/*"

@@ -7,6 +7,7 @@ import { useAuth } from "../../hooks/authContext";
 import like from "../../assets/images/thumb_up_FILL0_wght400_GRAD0_opsz24.svg";
 import dislike from "../../assets/images/thumb_down_FILL0_wght400_GRAD0_opsz24.svg";
 import userfoto from "../../assets/images/2_4yls8wlami9frintdrgsya.jpeg";
+
 export const MovieDetailsPage: React.FC = () => {
   const { id } = useParams();
   const [movieDetails, setMovieDetails] = useState<MovieDetails | null>(null);
@@ -55,7 +56,6 @@ export const MovieDetailsPage: React.FC = () => {
         })
       );
       setComments(commentsData);
-      console.log(commentsData);
     } catch (error) {
       console.error("Error fetching comments:", error);
     }
@@ -78,6 +78,22 @@ export const MovieDetailsPage: React.FC = () => {
 
   const handleAddComment = async () => {
     try {
+      if (!newComment.trim()) {
+        console.error("Comment cannot be empty.");
+        return;
+      }
+
+      const existingComment = comments?.find(
+        (comment) => comment.comment.toLowerCase() === newComment.toLowerCase()
+      );
+
+      if (existingComment) {
+        console.error(
+          "Duplicate comment. Please enter a different comment."
+        );
+        return;
+      }
+
       const commentData: isComments = {
         id: id,
         comment: newComment,
@@ -109,101 +125,113 @@ export const MovieDetailsPage: React.FC = () => {
 
   return (
     <div>
-      {loading && <div></div>}
-      {movieDetails && (
-        <div className="main-container">
-          <div className="container">
-            <div className="main-box">
-              <div
-                className="image"
-                style={{ backgroundImage: `url(${movieDetails.images})` }}
-              ></div>
-              <div className="titlesbox">
-                <div className="box1">
-                  <h3>Заголовок:</h3>
-                  <p>{movieDetails.title}</p>
-                </div>
-                <div className="box2">
-                  <h3>Год:</h3>
-                  <p>{movieDetails.year}</p>
-                </div>
-                <div className="box1">
-                  <h3>Страна:</h3>
-                  <p>{movieDetails.country}</p>
-                </div>
-                <div className="box2">
-                  <h3>Жанр:</h3>
-                  <p>{movieDetails.genre}</p>
-                </div>
-                <div className="box1">
-                  <h3>Длительность фильма:</h3>
-                  <p>{movieDetails.runtime}</p>
-                </div>
-              </div>
-            </div>
-            <div className="main-box2">
-              <h3 className="text">Описание:</h3>
-              <p className="text2">{movieDetails.description}</p>
-            </div>
-            <h3 className="video-text">Смотреть онлайн</h3>
-            <iframe
-              width="100%"
-              height="695"
-              src={movieDetails.videoLink}
-              title={`${movieDetails.title} (${movieDetails.year})`}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              scrolling="no"
-            ></iframe>
-            <div className="flex4">
-              <div className="like" onClick={handleLikeClick}>
-                <img src={like} alt="" />
-              </div>
-              <div className="likesCount">{likesCount}</div>
-              <div className="like">
-                <img src={dislike} alt="" />
-              </div>
-            </div>
-            {isLoggedIn() && (
-              <>
-                <input
-                  type="text"
-                  className="comments"
-                  value={newComment}
-                  placeholder="Прокомментировать..."
-                  onChange={(e) => setNewComment(e.target.value)}
-                />
-                <button className="add-comment" onClick={handleAddComment}>
-                  Add Comment
-                </button>
-              </>
-            )}
-            <div className="all-comments">
-              {comments &&
-                comments.map((comment, index) => (
-                  <div key={index} className="user-comment">
-                    <div className="foto">
-                      <img src={userfoto} alt="" className="foto" />
-                    </div>
-                    <div>
-                      <div className="userCom">{user?.username}</div>
-                      <div className="comm">{comment.comment}</div>
-                    </div>
-
-                    {isLoggedIn() && (
-                      <div className="deleteCom">
-                        <button
-                          className="deleteComm"
-                          onClick={() => handleDeleteComment(comment.id!)}
-                        >
-                          delete
-                        </button>
-                      </div>
-                    )}
+      {loading ? (
+        <div></div>
+      ) : (
+        movieDetails && (
+          <div className="main-container">
+            <div className="container">
+              <div className="main-box">
+                <div
+                  className="image"
+                  style={{
+                    backgroundImage: `url(${movieDetails.images})`,
+                  }}
+                ></div>
+                <div className="titlesbox">
+                  <div className="box1">
+                    <h3>Заголовок:</h3>
+                    <p>{movieDetails.title}</p>
                   </div>
-                ))}
+                  <div className="box2">
+                    <h3>Год:</h3>
+                    <p>{movieDetails.year}</p>
+                  </div>
+                  <div className="box1">
+                    <h3>Страна:</h3>
+                    <p>{movieDetails.country}</p>
+                  </div>
+                  <div className="box2">
+                    <h3>Жанр:</h3>
+                    <p>{movieDetails.genre}</p>
+                  </div>
+                  <div className="box1">
+                    <h3>Длительность фильма:</h3>
+                    <p>{movieDetails.runtime}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="main-box2">
+                <h3 className="text">Описание:</h3>
+                <p className="text2">{movieDetails.description}</p>
+              </div>
+              <h3 className="video-text">Смотреть онлайн</h3>
+              <iframe
+                width="100%"
+                height="695"
+                src={movieDetails.videoLink}
+                title={`${movieDetails.title} (${movieDetails.year})`}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                scrolling="no"
+              ></iframe>
+              <div className="flex4">
+                <div className="like" onClick={handleLikeClick}>
+                  <img src={like} alt="" />
+                </div>
+                <div className="likesCount">{likesCount}</div>
+                <div className="like">
+                  <img src={dislike} alt="" />
+                </div>
+              </div>
+              {isLoggedIn() && (
+                <>
+                  <input
+                    type="text"
+                    className="comments"
+                    value={newComment}
+                    placeholder="Прокомментировать..."
+                    onChange={(e) => setNewComment(e.target.value)}
+                  />
+                  <button
+                    className="add-comment"
+                    onClick={handleAddComment}
+                  >
+                    Добавить комментарий
+                  </button>
+                </>
+              )}
+              <div className="all-comments">
+                {comments &&
+                  comments
+                    .slice()
+                    .reverse()
+                    .map((comment, index) => (
+                      <div key={index} className="user-comment">
+                        <div className="foto">
+                          <img src={userfoto} alt="" className="foto" />
+                        </div>
+                        <div>
+                          <div className="userCom">{user?.username}</div>
+                          <div className="comm">{comment.comment}</div>
+                        </div>
+                        {isLoggedIn() && (
+                          <div className="deleteCom">
+                            <button
+                              className="deleteComm"
+                              onClick={() =>
+                                handleDeleteComment(comment.id!)
+                              }
+                            >
+                              Удалить
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+              </div>
             </div>
           </div>
-        </div>
+        )
       )}
     </div>
   );
