@@ -90,4 +90,56 @@ const deleteComment = (req, res) => {
   });
 };
 
-module.exports = { getAllMovies, getMovieById, addMovie, likeMovie, addComment, getLikesCount, getCommentsByMovieId, deleteMovie, deleteComment };
+const updateMovieRating = (req, res) => {
+  const movieId = req.params.id;
+  const { newRating } = req.body;
+
+  movieService.updateMovieRating(movieId, newRating, (err, changes) => {
+    if (err) {
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      if (changes > 0) {
+        res.json({ message: 'Movie rating updated successfully' });
+      } else {
+        res.status(404).json({ message: 'Movie not found' });
+      }
+    }
+  });
+};
+
+const getLikedMoviesByUser = (req, res) => {
+  const userId = req.params.userId;
+
+  movieService.getLikedMoviesByUser(userId, (err, movies) => {
+    if (err) {
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      res.json({ likedMovies: movies });
+    }
+  });
+};
+
+const getPopularMovies = (req, res) => {
+  movieService.getPopularMovies((err, movies) => {
+    if (err) {
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      res.json({ popularMovies: movies });
+    }
+  });
+};
+
+module.exports = {
+  getAllMovies,
+  getMovieById,
+  addMovie,
+  likeMovie,
+  addComment,
+  getLikesCount,
+  getCommentsByMovieId,
+  deleteMovie,
+  deleteComment,
+  updateMovieRating,
+  getLikedMoviesByUser,
+  getPopularMovies
+};

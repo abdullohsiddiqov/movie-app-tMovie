@@ -8,4 +8,12 @@ const loginUser = (req, res) => {
   userService.loginUser(req, res);
 };
 
-module.exports = { registerUser, loginUser };
+const updateUserProfile = (req, res) => {
+  userService.updateUserProfile(req, res);
+};
+
+const getCurrentUser = (req, res) => {
+  userService.getCurrentUser(req, res);
+};
+
+module.exports = { registerUser, loginUser, updateUserProfile, getCurrentUser };

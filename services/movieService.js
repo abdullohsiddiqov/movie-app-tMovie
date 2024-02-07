@@ -158,5 +158,37 @@ const deleteComment = (movieId, comment, callback) => {
   });
 };
 
-module.exports = { getAllMovies, addMovie, likeMovie, getMovieById, getLikesCount, addComment, getCommentsByMovieId, deleteMovie, deleteComment };
+const updateMovieRating = (movieId, newRating, callback) => {
+  db.run('UPDATE movies SET rate = ? WHERE id = ?', [newRating, movieId], function (err) {
+    if (err) {
+      console.error(err.message);
+      callback(err);
+    } else {
+      callback(null, this.changes);
+    }
+  });
+};
 
+const getLikedMoviesByUser = (userId, callback) => {
+  db.all('SELECT * FROM movies WHERE id IN (SELECT movieId FROM user_likes WHERE userId = ?)', [userId], (err, rows) => {
+    if (err) {
+      console.error(err.message);
+      callback(err);
+    } else {
+      callback(null, rows);
+    }
+  });
+};
+
+const getPopularMovies = (callback) => {
+  db.all('SELECT * FROM movies ORDER BY likes DESC LIMIT 10', (err, rows) => {
+    if (err) {
+      console.error(err.message);
+      callback(err);
+    } else {
+      callback(null, rows);
+    }
+  });
+};
+
+module.exports = { getAllMovies, addMovie, likeMovie, getMovieById, getLikesCount, addComment, getCommentsByMovieId, deleteMovie, deleteComment, updateMovieRating, getLikedMoviesByUser, getPopularMovies };

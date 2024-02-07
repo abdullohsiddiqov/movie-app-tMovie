@@ -34,4 +34,47 @@ const loginUser = (req, res) => {
   });
 };
 
-module.exports = { registerUser, loginUser };
+const updateUserProfile = (req, res) => {
+  const { userId, newPassword } = req.body;
+
+  const sql = 'UPDATE users SET password = ? WHERE id = ?';
+  db.run(sql, [newPassword, userId], function (err) {
+    if (err) {
+      console.error(err.message);
+      return res.status(500).json({ message: 'Internal Server Error', error: err.message });
+    }
+
+    console.log(`Password updated for user with ID ${userId}`);
+
+    db.get('SELECT * FROM users WHERE id = ?', [userId], (err, row) => {
+      if (err) {
+        console.error(err.message);
+        return res.status(500).json({ message: 'Internal Server Error', error: err.message });
+      }
+
+      console.log('Updated user:', row);
+      res.json({ message: 'Profile updated successfully', user: row });
+    });
+  });
+};
+
+
+
+const getCurrentUser = (req, res) => {
+  const userId = req.params.id;
+
+  db.get('SELECT * FROM users WHERE id = ?', [userId], (err, row) => {
+    if (err) {
+      console.error(err.message);
+      res.status(500).json({ message: 'Internal Server Error' });
+    } else {
+      if (row) {
+        res.json({ user: row });
+      } else {
+        res.status(404).json({ message: 'User not found' });
+      }
+    }
+  });
+};
+
+module.exports = { registerUser, loginUser, updateUserProfile, getCurrentUser };
