@@ -78,7 +78,7 @@ export const Movielist: React.FC = () => {
     <>
     <div>
       {loading && (
-        <div className="skeleton react-skeletons">
+        <div className="react-skeletons">
           {[...Array(10)].map((_, index) => (
             <div key={index} className="skeleton">
               <Skeleton

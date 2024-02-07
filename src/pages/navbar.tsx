@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../hooks/authContext';
 import "../assets/styles/navbar.css";
 import logo from '../assets/images/logo-dark.png';
@@ -7,6 +7,7 @@ import logo from '../assets/images/logo-dark.png';
 export const Navbar: React.FC = () => {
   const { user, isLoggedIn, logout } = useAuth();
   const navigate = useNavigate();
+  const { id } = useParams();
   const [scrolled, setScrolled] = useState(false);
 
   const handleAddMovie = () => {
@@ -35,9 +36,14 @@ export const Navbar: React.FC = () => {
           <li>
             <Link to="/" className='home'>Главное меню</Link>
           </li>
+          <li>
+              <Link to='/popular-movies'><button className='add'>Популярные</button></Link>
+          </li>
           {isLoggedIn() ? (
             <>
-              <li className='user'>{user?.username}</li>
+              <li>
+                <Link to={``} className='user'>{user?.username}</Link>
+              </li>
               <li>
                 <button onClick={logout} className='logout'>Выход</button>
               </li>
@@ -48,10 +54,10 @@ export const Navbar: React.FC = () => {
           ) : (
             <>
               <li>
-                <Link to="/login" className='authreg'>Вход</Link>
+                <Link to="/auth/login" className='authreg'>Вход</Link>
               </li>
               <li>
-                <Link to="/register" className='authreg'>Регистрация</Link>
+                <Link to="/auth/register" className='authreg'>Регистрация</Link>
               </li>
             </>
           )}

@@ -1,35 +1,47 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 import { useAuth } from "../../hooks/authContext";
 import { SignEntity } from "../../utils/types";
-import { signOut } from "../../utils/api";
+import { signIn } from "../../utils/api";
 import "../../assets/styles/registerlogin.css";
 
-export const Register: React.FC = () => {
-  const [formData, setFormData] = useState<SignEntity.UserSignUp>({
+export const Login: React.FC = () => {
+  const [formData, setFormData] = useState<SignEntity.UserSignIn>({
     username: "",
     password: "",
   });
+  const [error, setError] = useState<string | null>(null);
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSignUp = async (data: SignEntity.UserSignUp) => {
+  const handleSignIn = async (data: SignEntity.UserSignIn) => {
     try {
-      const response = await signOut(data);
+      const response = await signIn(data);
       console.log("Backend Response:", response.data);
-      navigate("/login");
+
+      const isAdminUser = (data.username === "gangdramma" && data.password === "root1234")
+
+      login(data.username, isAdminUser);
+      setError(null);
+      setFormData((prevData) => ({
+        ...prevData,
+        username: "",
+        password: ""
+      }));
+      navigate("/");
     } catch (error) {
-      console.error("Error during registration:", error);
+      setError(`Error during login: ${error}`);
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await handleSignUp(formData);
+    handleSignIn(formData);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const { value, name } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -40,13 +52,14 @@ export const Register: React.FC = () => {
     <div>
       <h2 className="text100">Личный кабинет</h2>
       <div className="flex2">
-        <Link to="/login" className="text101">
-          Вход
+        <Link to="/register" className="text101">
+         Вход
         </Link>
       </div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='style'>
         <div className="box100">
           <label>
+            {error ? <p style={{ color: "red" }}>{error}</p> : null}
             <input
               type="text"
               name="username"
@@ -66,8 +79,9 @@ export const Register: React.FC = () => {
               placeholder="Пароль:"
             />
           </label>
+          <span className="acc">Пока нету аккаунта? <span><Link to="/auth/register" className='auth'>Регистрация</Link></span></span>
           <button className="register" type="submit">
-            Регистрация
+            Вход
           </button>
         </div>
       </form>

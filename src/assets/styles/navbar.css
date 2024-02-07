@@ -81,10 +81,6 @@ button{
     color: white;
     cursor: pointer;
 }
-.user:hover{ 
-    border-bottom: 2px solid white;
-    transition: .3s;
-}
 .home{ 
     font-family: sans-serif;
     font-size: 20px;
